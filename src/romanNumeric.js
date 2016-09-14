@@ -1,75 +1,73 @@
-var romanNumeric = function(number) {
-    var one = 'I';
-    var five = 'V';
-    var ten = 'X';
-    var fifty = 'L';
-    var hundred = 'C';
-    var five_hundred = 'D';
-    var thousand = 'M';
-    var five_thousand = '^V';
-    var ten_thousand = '^X';
-    var roman_numerals_according_unit = [
-        [five, ten, one],
-        [fifty, hundred, ten],
-        [five_hundred, thousand, hundred],
-        [five_thousand, ten_thousand, thousand],
-    ];
-    var result = '';
+const numberOne = 'I';
+const numberFive = 'V';
+const numberFour = numberOne + numberFive;
+const numberTen = 'X';
+const numberNine = numberOne + numberTen;
+const numberFifty = 'L';
+const numberForty = numberTen + numberFifty;
+const numberOneHundred = 'C';
+const numberNinety = numberTen + numberOneHundred;
+const numberFiveHundred = 'D';
+const numberFourHundred = numberOneHundred + numberFiveHundred;
+const numberOneThunred = 'M';
+const numberNineHundred = numberOneHundred + numberOneThunred;
 
-    if(isNaN(number)||number<1 ||number>10000){
-        return result;
-    }
-    if(number===10000){
-        return ten_thousand;
-    }
+let OneUnit, FourUnit, FiveUnit, NineUnit;
 
-    var digits = number.toString().split('').reverse();
+function getFirstThreeNumbers(numberOfRepeat, stringForRepeat) {
+    return stringForRepeat.repeat(numberOfRepeat);
+}
 
-    for (var i = 0, len = digits.length; i < len; i++) {
-        var numberToTransform = parseInt(digits[i]);
-        var numberRomans = roman_numerals_according_unit[i];
-        var nextRomanNumber = getNextRomanNumber(numberToTransform, numberRomans);
-        var moduleFive = (numberToTransform) % 5;
-        var moduleFourRomanNumber = firstFourNumber(moduleFive, nextRomanNumber, numberRomans[2]);
-        var firstCaracter = getPrimaryCaracter(numberToTransform, numberRomans);
-        result =  firstCaracter + moduleFourRomanNumber + result;
+function setUpUnits(zeros) {
+    switch (zeros) {
+        case 1:
+            OneUnit = numberTen;
+            FourUnit = numberForty;
+            FiveUnit = numberFifty;
+            NineUnit = numberNinety;
+            break;
+        case 2:
+            OneUnit = numberOneHundred;
+            FourUnit = numberFourHundred;
+            FiveUnit = numberFiveHundred;
+            NineUnit = numberNineHundred;
+            break;
+        default:
+            OneUnit = numberOne;
+            FourUnit = numberFour;
+            FiveUnit = numberFive;
+            NineUnit = numberNine;
     }
+}
+function getValue(unit) {
+    let result;
+    switch (unit) {
+        case 4:
+            result = FourUnit;
+            break;
+        case 9:
+            result = NineUnit;
+            break;
+        default:
+            if (unit > 4) {
+                let number = unit - 5;
+                result = FiveUnit + getFirstThreeNumbers(number, OneUnit);
+            } else {
+                result = getFirstThreeNumbers(unit, OneUnit);
+            }
+            break;
+    }
+    return result;
+}
+
+module.exports = function getRomanNumeric(number2transform) {
+    const number = number2transform.toString().split('').reverse();
+    let result = '';
+
+    number.forEach(function(element, index){
+        setUpUnits(index);
+        result = getValue(parseInt(element)) + result;
+    });
 
     return result;
-
-    //////////////////////
-
-    function getPrimaryCaracter(number, options) {
-        if (number > 4 && number < 9) {
-            return options[0];
-        } else {
-            return '';
-        }
-    }
-    
-    function getNextRomanNumber(number, options) {
-        if (number === 9) {
-            return options[1];
-        } else {
-            return options[0];
-        }
-    }
-
-    function addI(repeat, value) {
-        var result = '';
-        for (var i = 0; i < repeat; i++) {
-            result += value;
-        }
-        return result;
-    }
-
-    function firstFourNumber(number, nextValue, value) {
-        if (number < 4) {
-            return addI(number, value);
-        } else {
-            return value + nextValue;
-        }
-    }
-
-    
 };

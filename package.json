@@ -1,27 +1,23 @@
 {
   "name": "kata.roman-numerals.js",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Kata Roman Numerals with JS",
-  "main": "index.js",
   "scripts": {
-    "test": "karma start --reporters coverage --no-single-run"
+    "test": "mocha -u tdd test"
+  },
+  "author": "Agustí Becerra Milà",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2"
   },
   "repository": {
     "type": "git",
     "url": "git+https://7agustibm@github.com/7agustibm/kata.roman-numerals.js.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/7agustibm/kata.roman-numerals.js/issues"
   },
   "homepage": "https://github.com/7agustibm/kata.roman-numerals.js#readme",
-  "devDependencies": {
-    "jasmine-core": "^2.4.1",
-    "karma": "^0.13.22",
-    "karma-chrome-launcher": "^0.2.3",
-    "karma-coverage": "^1.0.0",
-    "karma-jasmine": "^0.3.8"
-  }
+  "keywords": []
 }
