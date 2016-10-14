@@ -1,3 +1,5 @@
+'use strict';
+
 const numberOne = 'I';
 const numberFive = 'V';
 const numberFour = numberOne + numberFive;

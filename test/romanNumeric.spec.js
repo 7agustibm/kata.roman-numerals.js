@@ -1,3 +1,5 @@
+'use strict';
+
 const assert = require('chai').assert;
 const getRomanNumeric = require('../src/romanNumeric');
 
