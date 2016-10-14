@@ -1,6 +1,6 @@
 'use strict';
 
-const numberOne = '1';
+const numberOne = 'I';
 const numberFive = 'V';
 const numberFour = numberOne + numberFive;
 const numberTen = 'X';
